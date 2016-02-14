@@ -1,0 +1,9 @@
+[user]
+	name = Jonathan Yu
+	email = jawnsy@cpan.org
+[alias]
+	ci = commit
+	st = status
+[push]
+	default = simple
+

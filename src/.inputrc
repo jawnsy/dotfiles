@@ -1,0 +1,7 @@
+# Settings for libreadline
+
+# Enable incrmental searching of command history
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char

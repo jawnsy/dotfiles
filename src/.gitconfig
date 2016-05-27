@@ -6,4 +6,5 @@
 	st = status
 [push]
 	default = simple
-
+[pull]
+	rebase = true

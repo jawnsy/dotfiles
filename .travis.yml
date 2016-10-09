@@ -1,0 +1,13 @@
+---
+language: bash
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - devscripts
+
+script:
+- sh install.sh
+- checkbashisms install.sh

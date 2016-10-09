@@ -2,6 +2,8 @@ dotfiles
 ========
 Jonathan Yu (@jawnsy) <jonathan.i.yu@gmail.com>
 
+image:https://travis-ci.org/jawnsy/dotfiles.svg["Build Status", link="https://travis-ci.org/jawnsy/dotfiles"]
+
 [intro]
 Introduction
 ------------
@@ -23,8 +25,8 @@ Usage
 -----
 
 You can make use of the files in this distribution by copying individual
-snippets to your configuration as desired, or you can flatter me by replacing
-your local configuration with these files entirely.
+snippets to your configuration as desired, or replace your local configuration
+with these files entirely using `sh install.sh`.
 
 The files contained herein are organized relative to your user home directory
 (`cd ~`) but can also be placed in `/etc/skel` to make them applicable to all

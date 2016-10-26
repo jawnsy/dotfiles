@@ -80,6 +80,8 @@ link .gitconfig
 
 link .inputrc
 
+link .npmrc
+
 link .profile
 
 make_directory .ssh 700

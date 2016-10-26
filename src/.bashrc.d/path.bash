@@ -5,6 +5,11 @@ if [ -d "${HOME}/.bin" ]; then
   path+=("${HOME}/.bin")
 fi
 
+# Node.js scripts
+if [ -d "${HOME}/.npm-packages/bin" ]; then
+  path+=("${HOME}/.npm-packages/bin")
+fi
+
 # Go programs
 if command -v go >/dev/null 2>&1; then
   export GOPATH="${HOME}/.go"

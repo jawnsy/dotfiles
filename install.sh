@@ -72,6 +72,7 @@ make_directory .bashrc.d
 link .bashrc.d/aliases.bash
 link .bashrc.d/completion.bash
 link .bashrc.d/history.bash
+link .bashrc.d/path.bash
 link .bashrc.d/prompt.bash
 link .bashrc.d/terminal.bash
 

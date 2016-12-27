@@ -24,6 +24,4 @@ export PS2="${bright_white}> ${reset}"
 export PS3="${bright_white}? ${reset}"
 export PS4="${bright_white}+ ${reset}"
 
-
-export PROMPT_COMMAND='echo -ne "\033]0;${USER}@$(hostname -s): ${PWD}\007"'
-
+export PROMPT_COMMAND='echo -ne "\e]0;${USER}@${HOSTNAME}: $(dirs +0)\a"'

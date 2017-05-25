@@ -1,7 +1,21 @@
-# Settings for libreadline
-
-# Enable incrmental searching of command history
-"\e[A": history-search-backward
+# Use already-typed text when searching history
 "\e[B": history-search-forward
-"\e[C": forward-char
-"\e[D": backward-char
+"\e[A": history-search-backward
+
+# Navigate between words using the Ctrl + Left/Right Arrow keys
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Treat symlinked directories as directories (add trailing slash)
+set mark-symlinked-directories on
+
+# When completions are ambiguous, list everything
+set show-all-if-ambiguous on
+# ... but prompt first if there are more than 100 matches
+set completion-query-items 100
+
+# Do not autocomplete hidden files unless the pattern begins with a dot
+set match-hidden-files off
+
+# More intelligent matching when tab completing in the middle of a word
+set skip-completed-text on

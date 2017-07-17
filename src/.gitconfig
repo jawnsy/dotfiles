@@ -4,6 +4,10 @@
 [alias]
 	ci = commit
 	st = status
+	prune = fetch --all --prune
+[merge]
+	ff = only
+	conflictstyle = diff3
 [push]
 	default = simple
 [pull]

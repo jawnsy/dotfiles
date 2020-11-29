@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  linux:
+    strategy:
+      matrix:
+        version:
+        - ubuntu-20.04
+        - ubuntu-18.04
+
+    runs-on: ${{ matrix.version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        sudo apt-get install --no-install-recommends --yes \
+          devscripts
+    - name: Install dotfiles
+      run: sh install.sh
+    - name: Check Bash-isms
+      run: checkbashisms install.sh

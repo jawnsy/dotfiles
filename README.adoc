@@ -2,31 +2,29 @@ dotfiles
 ========
 Jonathan Yu (@jawnsy) <jonathan.i.yu@gmail.com>
 
-image:https://img.shields.io/travis/jawnsy/dotfiles/master.svg?maxAge=2592000&style=flat-square["Build Status", link="https://travis-ci.org/jawnsy/dotfiles"]
+image:https://github.com/jawnsy/dotfiles/workflows/build/badge.svg?branch=main["Build Status", link="https://github.com/jawnsy/dotfiles/actions?query=workflow%3Abuild+branch%3Amain"]
 
 [intro]
 Introduction
 ------------
 
-***dotfiles*** is a collection of configuration files for bash, readline, ssh,
-and other programs.  The files have been tested primarily on Debian Linux, but
-should be applicable to other Linux distributions as well.
+***dotfiles*** is a collection of configuration files
+for bash, readline, ssh, and other programs.
+I have used these files on Debian Linux and Windows 10 under Git bash,
+but they are likely applicable to other operating systems too.
 
-By publishing this repository, it is my hope that these files may be useful to
-others, and that I might learn something through your contributions. Yes, you,
-the lovely person reading this -- please send me your comments, complaints,
-praise, rotten tomatoes, or whatever you'd like.
+I hope that these files are useful to others.
+Please share any feedback in an issue or pull request.
 
-There are also references to many other great dotfile collections described at
-https://dotfiles.github.io/
+There are other dotfile repositories at https://dotfiles.github.io/
 
 [usage]
 Usage
 -----
 
-You can make use of the files in this distribution by copying individual
-snippets to your configuration as desired, or replace your local configuration
-with these files entirely using `sh install.sh`.
+Copy individual configuration snippets as desired,
+or run `sh install.sh`
+to install these files.
 
 The files contained herein are organized relative to your user home directory
 (`cd ~`) but can also be placed in `/etc/skel` to make them applicable to all

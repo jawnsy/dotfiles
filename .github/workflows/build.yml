@@ -1,4 +1,4 @@
-name: Build
+name: build
 
 on:
   push:
@@ -23,8 +23,22 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install --no-install-recommends --yes \
-          devscripts
+          devscripts \
+          shellcheck
     - name: Install dotfiles
       run: sh install.sh
     - name: Check Bash-isms
       run: checkbashisms install.sh
+    - name: ShellCheck
+      run: |
+        shellcheck --shell=dash install.sh
+        shellcheck --shell=bash src/.bashrc.d/*.sh
+
+  windows:
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dotfiles
+      run: sh install.sh
+      shell: bash

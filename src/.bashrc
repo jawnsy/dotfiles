@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Initialization script for interactive bash shells.
 
 # Source files relative to current script directory, so that changes can
@@ -5,7 +7,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [ -d "$DIR/.bashrc.d" ]; then
-  for i in $DIR/.bashrc.d/*.bash; do
+  for i in $DIR/.bashrc.d/*.sh; do
     if [ -r $i ]; then
       source $i
     else

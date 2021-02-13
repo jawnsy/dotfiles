@@ -53,11 +53,7 @@ fi
 
 # Go programs
 if command -v go >/dev/null 2>&1; then
-    if [ "$OS" = "Msys" ]; then
-        add_if_exist "${HOME}/go/bin"
-    else
-        add_if_exist "${HOME}/.go/bin"
-    fi
+    add_if_exist "$(go env GOPATH)/bin"
 fi
 
 # Google Cloud SDK bundled python

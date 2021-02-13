@@ -2,43 +2,52 @@ name: build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
   workflow_dispatch:
 
 jobs:
   linux:
-    strategy:
-      matrix:
-        version:
-        - ubuntu-20.04
-        - ubuntu-18.04
-
-    runs-on: ${{ matrix.version }}
-
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: sh
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        sudo apt-get install --no-install-recommends --yes \
-          devscripts \
-          shellcheck
-    - name: Install dotfiles
-      run: sh install.sh
-    - name: Check Bash-isms
-      run: checkbashisms install.sh
-    - name: ShellCheck
-      run: |
-        shellcheck --shell=dash install.sh
-        shellcheck --shell=bash src/.bashrc.d/*.sh
+      - uses: actions/checkout@v2
+
+      - name: Install dotfiles
+        run: sh install.sh
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install --no-install-recommends --yes \
+            devscripts \
+            shellcheck
+      - name: Check Bash-isms
+        run: checkbashisms install.sh
+      - name: ShellCheck
+        run: |
+          shellcheck --shell=dash install.sh
+          shellcheck --shell=bash src/.bashrc.d/*.sh
+
+      - name: Run .bashrc and show environment
+        shell: bash
+        run: |
+          source ~/.bashrc
+          env
 
   windows:
     runs-on: windows-2019
-
+    defaults:
+      run:
+        shell: bash
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dotfiles
-      run: sh install.sh
-      shell: bash
+      - uses: actions/checkout@v2
+
+      - name: Install dotfiles
+        run: sh install.sh
+        shell: bash

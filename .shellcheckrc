@@ -1,0 +1,24 @@
+# Suggest explicitly using -n in `[ $var ]`
+enable=avoid-nullary-conditions
+
+# Suggest quoting variables without metacharacters
+#enable=quote-safe-variables
+
+# Warn when uppercase variables are unassigned
+#
+# We're not using this yet, because many scripts expect to be
+# provided parameters from the environment (e.g. GITHUB_REF) and
+# _should_ fail without it.
+#enable=check-unassigned-uppercase
+
+# Suggest 'command -v' instead of 'which'
+enable=deprecate-which
+
+# Suggest adding a default case in `case` statements
+#enable=add-default-case
+
+# Suggest putting braces around all variable references
+#
+# We're not using this, because the braces are not always required
+# and make variables less readable.
+#enable=require-variable-braces

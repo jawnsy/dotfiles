@@ -1,3 +1,5 @@
+[core]
+	editor = nano
 [user]
 	name = Jonathan Yu
 	email = jawnsy@cpan.org
@@ -11,4 +13,4 @@
 [push]
 	default = simple
 [pull]
-	rebase = true
+	ff = only

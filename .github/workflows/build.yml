@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
@@ -28,10 +27,8 @@ jobs:
           sudo apt-get install --no-install-recommends --yes \
             devscripts \
             shellcheck
-
       - name: Check Bash-isms
         run: checkbashisms install.sh
-
       - name: ShellCheck
         run: |
           shellcheck --shell=dash install.sh

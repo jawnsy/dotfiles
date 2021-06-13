@@ -18,7 +18,7 @@ add_if_exist () {
 }
 
 # Locally-installed scripts and utilities
-add_if_exist "${HOME}/.bin"
+add_if_exist "${HOME}/.local/bin"
 
 # Node.js scripts
 add_if_exist "${HOME}/.npm-packages/bin"

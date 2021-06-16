@@ -88,6 +88,7 @@ link .gitconfig
 link .inputrc
 
 link .npmrc
+link .yarnrc
 
 link .profile
 

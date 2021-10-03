@@ -7,61 +7,15 @@ echo "==> dotfile installation started"
 
 SOURCE=$PWD/src
 
-OS=$(uname --operating-system)
-
-link() {
-    name="$1"
-
-    if [ -L "$HOME"/"$name" ]; then
-        # If the symbolic link is already installed and points to the correct
-        # location, do nothing
-        target=$(readlink "$HOME"/"$name")
-        if [ "$target" = "$SOURCE"/"$name" ]; then
-            return
-        fi
-    fi
-
-    ln --symbolic --verbose --backup "$SOURCE"/"$name" "$HOME"/"$name"
-}
-
-make_directory() {
-    name="$1"
-    mode=${2:-0755}
-
-    if [ -d "$HOME"/"$name" ]; then
-        return
-    fi
-
-    if [ "$OS" = "Msys" ]; then
-        # mkdir on Windows fails with --mode
-        mkdir --verbose "$HOME"/"$name"
-    else
-        mkdir --verbose --mode="$mode" "$HOME"/"$name"
-    fi
-}
-
-copy() {
-    name="$1"
-    mode=${2:-0644}
-
-    # If the installed file is newer than the source one, do nothing
-    if [ -n "$(find -L "$HOME"/"$name" -prune -newer "$SOURCE"/"$name")" ]; then
-        echo "--- Existing file $HOME/$name is newer than source $SOURCE/$name; skipping" >&2
-        return
-    fi
-
-    install --verbose --compare --backup --mode="$mode" --no-target-directory "$SOURCE"/"$name" "$HOME"/"$name"
-}
-
-remove() {
-    name="$1"
-
-    if [ ! -e "$HOME"/"$name" ]; then
-        return
-    fi
-
-    rm --verbose "$HOME"/"$name"
-}
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+# shellcheck source=lib/copy.sh
+. "$PROJECT_ROOT/lib/copy.sh"
+# shellcheck source=lib/make_directory.sh
+. "$PROJECT_ROOT/lib/make_directory.sh"
+# shellcheck source=lib/link.sh
+. "$PROJECT_ROOT/lib/link.sh"
+# shellcheck source=lib/remove.sh
+. "$PROJECT_ROOT/lib/remove.sh"
 
 # Remove unnecessary/redundant files
 echo
@@ -74,26 +28,26 @@ remove .bash_profile
 echo
 echo "--> Installing symbolic links to $HOME..."
 
-link .bashrc
+link "$SOURCE" .bashrc
 make_directory .bashrc.d
-link .bashrc.d/aliases.sh
-link .bashrc.d/completion.sh
-link .bashrc.d/history.sh
-link .bashrc.d/path.sh
-link .bashrc.d/prompt.sh
-link .bashrc.d/terminal.sh
+link "$SOURCE" .bashrc.d/aliases.sh
+link "$SOURCE" .bashrc.d/completion.sh
+link "$SOURCE" .bashrc.d/history.sh
+link "$SOURCE" .bashrc.d/path.sh
+link "$SOURCE" .bashrc.d/prompt.sh
+link "$SOURCE" .bashrc.d/terminal.sh
 
-link .gitconfig
+link "$SOURCE" .gitconfig
 
-link .inputrc
+link "$SOURCE" .inputrc
 
-link .npmrc
-link .yarnrc
+link "$SOURCE" .npmrc
+link "$SOURCE" .yarnrc
 
-link .profile
+link "$SOURCE" .profile
 
 make_directory .ssh 700
-copy .ssh/config
+copy "$SOURCE" .ssh/config
 
 echo
 echo "==> dotfile installation completed successfully"

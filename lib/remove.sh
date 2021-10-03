@@ -4,11 +4,11 @@ set -o errexit
 set -o nounset
 
 remove() {
-    name="$1"
+    target="$1"
 
-    if [ ! -e "$HOME/$name" ]; then
+    if [ ! -e "$target" ]; then
         return
     fi
 
-    rm --verbose "$HOME/$name"
+    rm --verbose "$target"
 }

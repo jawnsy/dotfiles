@@ -50,7 +50,7 @@ jobs:
 
       - name: ShellCheck
         run: |
-          shellcheck --shell=dash install.sh lib/*.sh
+          shellcheck --shell=dash install.sh install-system.sh lib/*.sh
           shellcheck --shell=bash src/.bashrc.d/*.sh
 
       - name: Run .bashrc and show environment
@@ -58,6 +58,11 @@ jobs:
         run: |
           source ~/.bashrc
           env
+
+      - name: Install system-level packages
+        run: |
+          yes | sudo sh install-system.sh
+          sudo apt update
 
   windows:
     runs-on: windows-2019

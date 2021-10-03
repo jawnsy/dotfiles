@@ -50,7 +50,7 @@ jobs:
 
       - name: ShellCheck
         run: |
-          shellcheck --shell=dash install.sh
+          shellcheck --shell=dash install.sh lib/*.sh
           shellcheck --shell=bash src/.bashrc.d/*.sh
 
       - name: Run .bashrc and show environment

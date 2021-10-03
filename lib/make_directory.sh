@@ -4,10 +4,10 @@ set -o errexit
 set -o nounset
 
 make_directory() {
-    local name="$1"
+    local target="$1"
     local mode=${2:-0755}
 
-    if [ -d "$HOME"/"$name" ]; then
+    if [ -d "$target" ]; then
         return
     fi
 
@@ -16,8 +16,8 @@ make_directory() {
 
     if [ "$OS" = "Msys" ]; then
         # mkdir on Windows fails with --mode
-        mkdir --verbose "$HOME"/"$name"
+        mkdir --verbose "$target"
     else
-        mkdir --verbose --mode="$mode" "$HOME"/"$name"
+        mkdir --verbose --mode="$mode" "$target"
     fi
 }

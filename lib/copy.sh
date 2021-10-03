@@ -9,7 +9,7 @@ copy() {
     local mode=${3:-0644}
 
     # If the installed file is newer than the source one, do nothing
-    if [ -n "$(find -L "$target" -prune -newer "$source")" ]; then
+    if test "$target" -nt "$source"; then
         echo "--- Existing file $target is newer than source $source; skipping" >&2
         return
     fi

@@ -11,9 +11,9 @@ link() {
         # If the symbolic link is already installed and points to the correct
         # location, do nothing
         local destination
-        destination=$(readlink "$source")
+        destination=$(readlink "$target")
         if [ "$destination" = "$source" ]; then
-            return
+            return 0
         fi
     fi
 

@@ -64,6 +64,11 @@ jobs:
           yes | sudo sh install-system.sh
           sudo apt update
 
+      - name: Ensure idempotency
+        run:
+          sh install.sh
+          yes | sudo sh install-system.sh
+
   windows:
     runs-on: windows-2019
     defaults:
@@ -77,5 +82,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dotfiles
+        run: sh install.sh
+        shell: bash
+
+      - name: Ensure idempotency
         run: sh install.sh
         shell: bash

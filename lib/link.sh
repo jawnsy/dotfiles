@@ -8,12 +8,11 @@ link() {
     local target="$2"
 
     if [ -L "$target" ]; then
-        # If the symbolic link is already installed and points to the correct
-        # location, do nothing
+        # Resolve the link and ensure it's pointing to the correct location
         local destination
-        destination=$(readlink "$source")
+        destination=$(readlink "$target")
         if [ "$destination" = "$source" ]; then
-            return
+            return 0
         fi
     fi
 

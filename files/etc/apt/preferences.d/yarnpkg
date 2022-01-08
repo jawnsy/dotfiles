@@ -1,0 +1,8 @@
+# Ignore all packages from this repository by default
+Package: *
+Pin: origin dl.yarnpkg.com
+Pin-Priority: 1
+
+Package: yarn
+Pin: origin dl.yarnpkg.com
+Pin-Priority: 500

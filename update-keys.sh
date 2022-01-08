@@ -20,4 +20,12 @@ pushd "$PROJECT_ROOT/files/usr/local/share/keyrings"
     # Microsoft repository signing key (Edge and Code)
     curl "${curl_flags[@]}" "https://packages.microsoft.com/keys/microsoft.asc" | \
         gpg --dearmor --output="microsoft.gpg"
+
+    # NodeSource signing key
+    curl "${curl_flags[@]}" "https://deb.nodesource.com/gpgkey/nodesource.gpg.key" | \
+        gpg --dearmor  --output="nodesource.gpg"
+
+    # Yarnpkg signing key
+    curl "${curl_flags[@]}" "https://dl.yarnpkg.com/debian/pubkey.gpg" | \
+        gpg --dearmor  --output="yarnpkg.gpg"
 popd

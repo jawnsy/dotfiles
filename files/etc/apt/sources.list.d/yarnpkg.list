@@ -1,0 +1,1 @@
+deb [signed-by=/usr/local/share/keyrings/yarnpkg.gpg] https://dl.yarnpkg.com/debian/ stable main

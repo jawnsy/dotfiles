@@ -1,0 +1,1 @@
+deb [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x bookworm main

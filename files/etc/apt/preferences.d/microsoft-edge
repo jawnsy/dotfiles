@@ -3,10 +3,10 @@ Package: *
 Pin: origin packages.microsoft.com
 Pin-Priority: 1
 
-Package: code
+Package: microsoft-edge-beta
 Pin: origin packages.microsoft.com
 Pin-Priority: 500
 
-Package: code-insiders
+Package: microsoft-edge-dev
 Pin: origin packages.microsoft.com
 Pin-Priority: 500

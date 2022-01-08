@@ -1,0 +1,3 @@
+# Ignore all packages from all repositories by default
+Package: *
+Pin-Priority: 1

@@ -23,11 +23,15 @@ echo "--> Removing redundant/unnecessary files..."
 
 FILES="$PROJECT_ROOT/files"
 
-if prompt "Install Chrome repositories? (y/N)"; then
-    make_directory "/etc/apt/preferences.d"
-    copy "$FILES/etc/apt/preferences.d/google-chrome" "/etc/apt/preferences.d/google-chrome"
+make_directory "/etc/apt/preferences.d"
+copy "$FILES/etc/apt/preferences.d/00default" "/etc/apt/preferences.d/00default"
+copy "$FILES/etc/apt/preferences.d/debian" "/etc/apt/preferences.d/debian"
 
-    make_directory "/etc/apt/sources.list.d"
+make_directory "/etc/apt/sources.list.d"
+copy "$FILES/etc/apt/sources.list.d/debian.list" "/etc/apt/sources.list.d/debian.list"
+
+if prompt "Install Google Chrome repositories? (y/N)"; then
+    copy "$FILES/etc/apt/preferences.d/google-chrome" "/etc/apt/preferences.d/google-chrome"
     copy "$FILES/etc/apt/sources.list.d/google-chrome.list" "/etc/apt/sources.list.d/google-chrome.list"
 
     make_directory "/etc/default"
@@ -40,10 +44,7 @@ else
 fi
 
 if prompt "Install Microsoft Visual Studio Code repositories? (y/N)"; then
-    make_directory "/etc/apt/preferences.d"
     copy "$FILES/etc/apt/preferences.d/microsoft-vscode" "/etc/apt/preferences.d/microsoft-vscode"
-
-    make_directory "/etc/apt/sources.list.d"
     copy "$FILES/etc/apt/sources.list.d/microsoft-vscode.list" "/etc/apt/sources.list.d/microsoft-vscode.list"
 
     make_directory "/usr/local/share/keyrings"

@@ -1,0 +1,3 @@
+# Content delivery mirror provided by Fastly and CloudFront
+deb https://deb.debian.org/debian/ testing main non-free contrib
+deb-src https://deb.debian.org/debian/ testing main non-free contrib

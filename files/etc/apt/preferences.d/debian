@@ -1,0 +1,4 @@
+# Install all packages from Debian archive
+Package: *
+Pin: origin deb.debian.org
+Pin-Priority: 500

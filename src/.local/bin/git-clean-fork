@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+#
+# This script creates an empty default branch in the fork, and sets
+# up the local "main" branch to track the upstream branch. The goal
+# is to create a clean Git repository whose default branch points
+# directly at upstream and therefore does not require updating.
+
+# Stop processing on error exit code
+set -o errexit
+
+# Fail if there are any intermediate variables
+set -o nounset
+
+# Fail if any command in pipeline fails
+set -o pipefail
+
+# check_remote checks if the remote exists, or exit with a failure
+# status.
+function check_remote() {
+    local remote_name="$1"
+
+    # Allow failures here, since we're checking the status code
+    set +o errexit
+        if ! git remote get-url "$remote_name" >/dev/null 2>&1; then
+            echo "Remote '$remote_name' not set; cannot continue" >&2
+            exit 1
+        fi
+    set -o errexit
+}
+
+# confirm_current_branch prompts the user to confirm that the
+# checked-out branch is the default branch.
+function confirm_current_branch() {
+    local branch="$1"
+
+    while true; do
+        read -p "Is '${branch}' the default branch? [y/N] " yn
+        case $yn in
+            [Yy]*)
+                break
+                ;;
+            *)
+                exit 1
+                ;;
+        esac
+    done
+}
+
+function main() {
+    check_remote origin
+    check_remote upstream
+
+    local REPO_LOCATION=$(git rev-parse --show-toplevel)
+    local REPO_NAME=$(basename "${REPO_LOCATION}")
+    local UPSTREAM_URL=$(git remote get-url upstream)
+
+    default_branch=$(git branch --show-current)
+    confirm_current_branch "${default_branch}"
+    default_branch_full=$(git rev-parse --symbolic-full-name "${default_branch}")
+
+    # Delete all tags
+    echo "Deleting all remote branches and tags..."
+    mapfile -t REMOTE_REFS < <(
+        git ls-remote --quiet --tags --heads --refs |
+            cut --fields=2 |
+            grep --invert '^'"${default_branch_full}"'$'
+    )
+
+    if [ "${#REMOTE_REFS[@]}" -gt 0 ]; then
+        git push origin --delete "${REMOTE_REFS[@]}"
+    fi
+
+    # Exit status will be nonzero if branch does not exist
+    set +o errexit
+        if git show-ref --quiet "refs/heads/origin/main"; then
+            echo "Local origin/main branch already exists; done"
+            exit 1
+        fi
+    set -o errexit
+
+    # Create an orphan branch called 'origin/main'
+    echo "Creating empty orphan branch"
+    git switch --no-guess --orphan "origin/main"
+
+    # We should have an empty worktree now, so create a stub README.md
+    echo "Generating README.md..."
+    cat <<EOF >README.md
+# ${REPO_NAME}
+
+This is [@jawnsy](https://github.com/jawnsy)'s fork of ${UPSTREAM_URL}.
+
+I wanted to avoid maintaining the \`main\` branch in my fork because:
+
+1. It is traditionally a pristine copy of the upstream repository, which
+   can cause confusion 
+1. I would have to synchronize it with the upstream repository periodically
+   time to time (\`git fetch upstream\`, \`git merge --ff-only upstream/main\`)
+   since it would traditionally be a pristine copy
+
+In order to avoid maintaining the \`main\` branch in my fork, I configured
+my local repository to track the upstream's default branch.
+EOF
+
+    echo "Opening editor to allow customization..."
+    editor README.md
+
+    # Committing and pushing changes
+    git add README.md
+    git commit --message="Add README indicating main branch is not used"
+    git push --force --set-upstream origin "origin/main:${default_branch}"
+
+    # Replace original default branch with tracking branch
+    git switch "${default_branch}"
+    if ! git remote set-head upstream "${default_branch}"; then
+        echo "Error setting upstream branch; run 'git pull --set-upstream upstream branch-name' manually" >&2
+    fi
+}
+
+main

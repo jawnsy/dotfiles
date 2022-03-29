@@ -18,7 +18,7 @@ link() {
     OS=$(uname -s)
     if [ "$OS" = "Darwin" ]; then
         # Use Unix-style flags if we're running on macOS
-        ln -sv "$source" "$target"
+        ln -sfv "$source" "$target"
     else
         ln --symbolic --verbose --backup "$source" "$target"
     fi

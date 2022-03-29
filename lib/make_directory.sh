@@ -12,6 +12,7 @@ make_directory() {
     fi
 
     OS=$(uname -s)
+    echo "OS: $OS"
     if [ "$OS" = "Msys" ]; then
         # mkdir on Windows fails with --mode
         mkdir --verbose "$target"

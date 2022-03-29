@@ -4,9 +4,8 @@ set -o errexit
 set -o nounset
 
 prompt() {
-    local question="$1"
-
-    local answer
+    question=$1
+    answer=
 
     read -r -p "$question " answer
     case "$answer" in

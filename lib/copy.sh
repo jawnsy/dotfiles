@@ -4,9 +4,9 @@ set -o errexit
 set -o nounset
 
 copy() {
-    local source="$1"
-    local target="$2"
-    local mode=${3:-0644}
+    source=$1
+    target=$2
+    mode=${3:-0644}
 
     # If the installed file is newer than the source one, do nothing
     if test "$target" -nt "$source"; then
@@ -14,5 +14,11 @@ copy() {
         return
     fi
 
-    install --verbose --compare --backup --mode="$mode" --no-target-directory "$source" "$target"
+    OS=$(uname -s)
+    if [ "$OS" = "Darwin" ]; then
+        # Use Unix-style flags if we're running on macOS
+       install -vb -m "$mode" -p "$source" "$target"
+    else
+        install --verbose --compare --backup --mode="$mode" --no-target-directory "$source" "$target"
+    fi
 }

@@ -89,8 +89,8 @@ jobs:
         run: sh install.sh
         shell: bash
 
-  windows:
-    runs-on: windows-2022
+  macos:
+    runs-on: macos-11
     defaults:
       run:
         shell: bash

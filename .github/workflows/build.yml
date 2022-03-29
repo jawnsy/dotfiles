@@ -69,8 +69,28 @@ jobs:
           sh install.sh
           yes | sudo sh install-system.sh
 
+  macos:
+    runs-on: macos-11
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Cancel previous runs
+        if: github.event_name == 'pull_request'
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - uses: actions/checkout@v2
+
+      - name: Install dotfiles
+        run: sh install.sh
+        shell: bash
+
+      - name: Ensure idempotency
+        run: sh install.sh
+        shell: bash
+
   windows:
-    runs-on: windows-2019
+    runs-on: windows-2022
     defaults:
       run:
         shell: bash

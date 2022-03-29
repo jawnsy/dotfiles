@@ -23,7 +23,7 @@ add_if_exist "${HOME}/.local/bin"
 # Node.js scripts
 add_if_exist "${HOME}/.npm-packages/bin"
 
-OS=$(uname --operating-system)
+OS=$(uname -s)
 
 # Running under mingw64, check for other software
 if [ "$OS" = "Msys" ]; then
@@ -49,6 +49,9 @@ if [ "$OS" = "Msys" ]; then
     add_if_exist "${ProgramFiles_x86}/Yarn/bin"
 
     add_if_exist "${ProgramFiles_x86}/Google/Cloud SDK/google-cloud-sdk/bin"
+elif [ "$OS" = "Darwin" ]; then
+    add_if_exist "/opt/homebrew/bin"
+    add_if_exist "/opt/homebrew/opt/coreutils/libexec/gnubin"
 fi
 
 # Go programs
